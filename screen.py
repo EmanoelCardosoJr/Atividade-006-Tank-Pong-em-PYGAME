@@ -16,6 +16,7 @@ while True:
             pygame.quit()
             exit()
 
+            
     # Desenho do tanque
     tank = pygame.draw.rect(screen, conf.WHITE, (conf.tank1_speed_x, conf.tank1_speed_y, 15, 15))
 
