@@ -4,7 +4,9 @@ import config
 from sys import exit
 import ball
 import obstacles
+from score import display_score
 from random import randint
+from config import score_p_1, score_p_2
 conf = config
 pygame.init()
 
@@ -147,7 +149,12 @@ while True:
         conf.tank1_speed_x -= 1
     if pygame.key.get_pressed()[K_d]:
         conf.tank1_speed_x += 1
+    # score
+    score_1 = display_score(score_p_1, 40, (141, 197, 80))
+    score_2 = display_score(score_p_2, 40, (78, 89, 221))
 
+    screen.blit(score_1, (180, 0.5))
+    screen.blit(score_2, (580, 0.5))
 
     ball.draw_ball(screen, conf.WHITE, ball1)
     ball.draw_ball(screen, conf.BLUE, ball2)

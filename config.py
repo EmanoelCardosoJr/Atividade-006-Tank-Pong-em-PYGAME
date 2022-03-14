@@ -10,7 +10,7 @@ time_counter = 5
 # score
 score_p_1 = 0
 score_p_2 = 0
-font = pygame.font.Font("dependencies/EightBit Atari-Thick.ttf", 34)
+font_Atari = "dependencies/EightBit Atari-Thick.ttf"
 # tank
 tank1_speed_x = 45
 tank1_speed_y = 350
