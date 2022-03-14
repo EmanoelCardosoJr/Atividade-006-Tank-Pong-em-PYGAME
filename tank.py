@@ -95,7 +95,62 @@ while True:
                 tank2_index += 1
                 if tank2_index > 15:
                     tank2_index = 0
+    # Movimentação tanque 1
+    if pygame.key.get_pressed()[K_w]:
+        # Esquerda
+        if tank1_index == 0:
+            tank1_x += 0.27
+        # Esquerda baixo
+        if tank1_index == 1:
+            tank1_x += 0.27
+            tank1_y -= 0.2
+        if tank1_index == 2:
+            tank1_x += 0.27
+            tank1_y -= 0.27
+        if tank1_index == 3:
+            tank1_x += 0.2
+            tank1_y -= 0.27
+        # Baixo
+        if tank1_index == 4:
+            tank1_y -= 0.27
+        # Baixo direita
+        if tank1_index == 5:
+            tank1_y -= 0.27
+            tank1_x -= 0.2
+        if tank1_index == 6:
+            tank1_y -= 0.27
+            tank1_x -= 0.27
+        if tank1_index == 7:
+            tank1_y -= 0.2
+            tank1_x -= 0.27
+        # Direita
+        if tank1_index == 8:
+            tank1_x -= 0.27
+        # Direita cima
+        if tank1_index == 9:
+            tank1_y += 0.2
+            tank1_x -= 0.27
+        if tank1_index == 10:
+            tank1_y += 0.2
+            tank1_x -= 0.27
+        if tank1_index == 11:
+            tank1_y += 0.27
+            tank1_x -= 0.2
+        # Encima
+        if tank1_index == 12:
+            tank1_y += 0.27
+        # Esquerda cima
+        if tank1_index == 13:
+            tank1_x += 0.2
+            tank1_y += 0.27
+        if tank1_index == 14:
+            tank1_x += 0.27
+            tank1_y += 0.27
+        if tank1_index == 15:
+            tank1_x += 0.27
+            tank1_y += 0.2                
     
+    # Movimentação tanque 2
     if pygame.key.get_pressed()[K_UP]:
         # Esquerda
         if tank2_index == 0:
