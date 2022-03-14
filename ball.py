@@ -98,10 +98,7 @@ def limit_wall_collision(ball, ball_mx, ball_my, height, width):
             return ball_mx, ball_my
         else:
             # the actual collision
-            if ball_my == 0:
-
-                ball_my = 5 if randint(-3, 3) > 0 else -5
-            elif (ball_my != 5) and (ball_my != -5):
+            if(ball_my != 5) and (ball_my != -5):
                 if ball_my > 0:
                     ball_my = 5
                 else:
@@ -129,9 +126,8 @@ def limit_wall_collision(ball, ball_mx, ball_my, height, width):
             return ball_mx, ball_my
         else:
             # the actual collision
-            if ball_my == 0:
-                ball_my = 5 if randint(-3, 3) > 0 else -5
-            elif (ball_my != 5) and (ball_my != -5):
+
+            if (ball_my != 5) and (ball_my != -5):
                 if ball_my > 0:
                     ball_my = 5
                 else:
@@ -171,9 +167,7 @@ def limit_wall_collision(ball, ball_mx, ball_my, height, width):
                     ball_my = -5
             else:
                 ball_my = ball_my
-            if ball_mx == 0:
-                ball_mx = 5 if randint(-3, 3) > 0 else -5
-            elif (ball_mx != 5) and (ball_mx != -5):
+            if (ball_mx != 5) and (ball_mx != -5):
                 if ball_mx > 0:
                     ball_mx = 5
                 else:
@@ -202,9 +196,7 @@ def limit_wall_collision(ball, ball_mx, ball_my, height, width):
                     ball_my = -5
             else:
                 ball_my = ball_my
-            if ball_mx == 0:
-                ball_mx = 5 if randint(-3, 3) > 0 else -5
-            elif (ball_mx != 5) and (ball_mx != -5):
+            if (ball_mx != 5) and (ball_mx != -5):
                 if ball_mx > 0:
                     ball_mx = 5
                 else:
@@ -218,3 +210,4 @@ def limit_wall_collision(ball, ball_mx, ball_my, height, width):
 
     else:
         return ball_mx, ball_my
+
