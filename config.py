@@ -14,6 +14,8 @@ font = pygame.font.Font("dependencies/EightBit Atari-Thick.ttf", 34)
 # tank
 tank1_speed_x = 45
 tank1_speed_y = 350
+tank_idle_pos_x = 400
+tank_idle_pos_y = 400
 GREEN = (0, 50, 0)
 RED = (130, 0, 0)
 BLUE = (0, 0, 100)
