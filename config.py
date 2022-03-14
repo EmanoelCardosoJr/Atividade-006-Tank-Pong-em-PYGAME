@@ -40,3 +40,9 @@ timer_on = False
 timer_on2 = False
 wiggle_cont = 0
 wiggle_cont2 = 0
+# sounds
+BALL_COLLISION_WALLS = "sound/ball_collision.mp3"
+TANK_HIT = "sound/cannon_hit.mp3"
+TANK_ROTATE = "sound/rotate.mp3"
+TANK_SHOOT = "sound/shoot.mp3"
+TANK_WALK = "sound/walk.mp3"

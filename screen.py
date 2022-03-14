@@ -6,7 +6,7 @@ import ball
 import obstacles
 from score import display_score
 from random import randint
-from config import score_p_1, score_p_2
+from config import score_p_1, score_p_2, TANK_HIT, TANK_ROTATE, TANK_SHOOT, TANK_WALK
 conf = config
 pygame.init()
 
@@ -132,43 +132,61 @@ while True:
     if tank.colliderect(ball1):
         # use whatever tank collision functions with the ball you have here
         conf.hit = True
+        score_p_1 += 1
+        hit = pygame.mixer.Sound(TANK_HIT)
+        pygame.mixer.Sound.play(hit)
+        hit.set_volume(0.1)
     if tank.colliderect(ball2):
         # use whatever tank collision functions with the ball you have here
         # change tank
         conf.hit2 = True
+        score_p_2 += 1
+        hit = pygame.mixer.Sound(TANK_HIT)
+        pygame.mixer.Sound.play(hit)
+        hit.set_volume(0.1)
 
 
     # keyboard inputs
     if pygame.key.get_pressed()[K_w]:
-
         conf.tank1_speed_y -= 1
+        walk = pygame.mixer.Sound(TANK_WALK)
+        pygame.mixer.Sound.play(walk)
+        walk.set_volume(0.1)
     if pygame.key.get_pressed()[K_r]:
         conf.hit = True
     if pygame.key.get_pressed()[K_r]:
         conf.hit2 = True
     if pygame.key.get_pressed()[K_s]:
         conf.tank1_speed_y += 1
+        walk = pygame.mixer.Sound(TANK_WALK)
+        pygame.mixer.Sound.play(walk)
+        walk.set_volume(0.1)
     if pygame.key.get_pressed()[K_c]:
         if conf.timer_on:
             conf.shoot = conf.shoot
         else:
             conf.shoot = True
-    if pygame.key.get_pressed()[K_c]:
-        if conf.timer_on:
-            conf.shoot = conf.shoot
-        else:
-            conf.shoot = True
+        shoot = pygame.mixer.Sound(TANK_SHOOT)
+        pygame.mixer.Sound.play(shoot)
+        shoot.set_volume(0.05)
     if pygame.key.get_pressed()[K_v]:
         if conf.timer_on2:
             conf.shoot2 = conf.shoot2
         else:
             conf.shoot2 = True
-
+        shoot = pygame.mixer.Sound(TANK_SHOOT)
+        pygame.mixer.Sound.play(shoot)
+        shoot.set_volume(0.05)
     if pygame.key.get_pressed()[K_a]:
         conf.tank1_speed_x -= 1
+        rotate = pygame.mixer.Sound(TANK_ROTATE)
+        pygame.mixer.Sound.play(rotate)
+        rotate.set_volume(0.1)
     if pygame.key.get_pressed()[K_d]:
         conf.tank1_speed_x += 1
-
+        rotate = pygame.mixer.Sound(TANK_ROTATE)
+        pygame.mixer.Sound.play(rotate)
+        rotate.set_volume(0.1)
     # score
     score_1 = display_score(score_p_1, 40, (141, 197, 80))
     score_2 = display_score(score_p_2, 40, (78, 89, 221))
