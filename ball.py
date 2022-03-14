@@ -56,8 +56,66 @@ def shoot(ball, tank_sprite, ball_x, ball_y, ball_mx, ball_my):
     if tank_sprite == "img/player1_15.png":
         ball_mx = 5
         ball_my = 1.5
+    if ball_mx == 0 == ball_my:
+        return 5, 5
+    else:
+        return ball_mx, ball_my
+
+
+def shoot2(ball, tank_sprite, ball_x, ball_y, ball_mx, ball_my):
+    ball.x = ball_x
+    ball.y = ball_y
+    if tank_sprite == "img/player2_00.png":
+        ball_mx = 5
+        ball_my = 0
+    if tank_sprite == "img/player2_09.png":
+        ball_mx = 5
+        ball_my = -1.5
+    if tank_sprite == "img/player2_10.png":
+        ball_mx = 5
+        ball_my = -4
+    if tank_sprite == "img/player2_11.png":
+        ball_mx = 3
+        ball_my = -8
+    if tank_sprite == "img/player2_12.png":
+        ball_mx = 0
+        ball_my = -5
+    if tank_sprite == "img/player2_13.png":
+        ball_mx = -3
+        ball_my = -8
+    if tank_sprite == "img/player2_14.png":
+        ball_mx = -5
+        ball_my = -4
+    if tank_sprite == "img/player2_15.png":
+        ball_mx = -5
+        ball_my = -1.5
+    if tank_sprite == "img/player2_00.png":
+        ball_mx = -5
+        ball_my = 0
+    if tank_sprite == "img/player2_01.png":
+        ball_mx = -5
+        ball_my = 1.5
+    if tank_sprite == "img/player2_02.png":
+        ball_mx = -5
+        ball_my = 4
+    if tank_sprite == "img/player2_03.png":
+        ball_mx = -3
+        ball_my = 8
+    if tank_sprite == "img/player2_04.png":
+        ball_mx = 0
+        ball_my = 5
+    if tank_sprite == "img/player2_05.png":
+        ball_mx = 3
+        ball_my = 8
+    if tank_sprite == "img/player2_06.png":
+        ball_mx = 5
+        ball_my = 4
+    if tank_sprite == "img/player2_07.png":
+        ball_mx = 5
+        ball_my = 1.5
 
     return ball_mx, ball_my
+
 
 
 def end_ball(ball, ball_mx, ball_my):
