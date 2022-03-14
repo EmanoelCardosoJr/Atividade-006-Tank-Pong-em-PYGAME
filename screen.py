@@ -6,23 +6,27 @@ import ball
 import obstacles
 from score import display_score
 from random import randint
-from config import score_p_1, score_p_2, TANK_HIT, TANK_ROTATE, TANK_SHOOT, TANK_WALK
+from config import score_p_1, score_p_2
+import tank
 conf = config
 pygame.init()
+Tank = tank
 
 screen = pygame.display.set_mode((conf.screen_height, conf.screen_width))
-ball1 = ball.create_ball(conf.screen_height+100, conf.screen_width+100)
-ball2 = ball.create_ball(conf.screen_height+100, conf.screen_width+100)
+ball1 = ball.create_ball(Tank.tank1_x, Tank.tank1_y)
+ball2 = ball.create_ball(Tank.tank2_x, Tank.tank2_y)
+tank1_rect = pygame.Rect(Tank.tank1_x, Tank.tank1_y, Tank.tank_size, Tank.tank_size)
+tank2_rect = pygame.Rect(Tank.tank2_x, Tank.tank2_y, Tank.tank_size, Tank.tank_size)
 pygame.time.set_timer(pygame.USEREVENT, 1000)
-tank_sprite = "img/player1_02.png"
-tank_test = pygame.image.load(tank_sprite)
+#tank_sprite = "img/player1_04.png"
+#tank_test = pygame.image.load(tank_sprite)
 pygame.display.set_caption('Combat')
 clock = pygame.time.Clock()
 
 
 while True:
     screen.fill(conf.RED)
-    screen.blit(tank_test, (conf.tank_idle_pos_x, conf.tank_idle_pos_y))
+    #screen.blit(tank_test, (conf.tank_idle_pos_x, conf.tank_idle_pos_y))
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -62,7 +66,7 @@ while True:
     # Desenho do tanque
 
 
-    tank = pygame.draw.rect(screen, conf.WHITE, (conf.tank1_speed_x, conf.tank1_speed_y, 15, 15))
+   # tank = pygame.draw.rect(screen, conf.WHITE, (conf.tank1_speed_x, conf.tank1_speed_y, 15, 15))
 
 
     # Desenho das paredes e cenário
@@ -76,6 +80,12 @@ while True:
     pygame.draw.line(screen, conf.YELLOW, (0, 60), (800, 60), 20)  # Teto
     #
     obstacles.draw_obstacles()
+    tank_sprite = Tank.add_tank1( Tank.tank1_index,  Tank.tank1_x,  Tank.tank1_y)
+    tank2_sprite = Tank.add_tank2( Tank.tank2_index,  Tank.tank2_x,  Tank.tank2_y)
+    if conf.ball2_my == 0:
+        conf.ball2_my = 5 if randint(1, 3) == 1 else 5
+    if conf.ball2_mx == 0:
+        conf.ball2_mx = 5 if randint(1, 3) == 1 else 5
 
     for obs in obstacles.obstacles_list:
         if obs.colliderect(ball1):
@@ -109,7 +119,7 @@ while True:
     if conf.timer_on2:
         ball.move_ball(ball2, conf.ball2_mx, conf.ball2_my)
     if conf.shoot:
-        conf.ball_mx, conf.ball_my = ball.shoot(ball1, tank_sprite, conf.tank_idle_pos_x+25/2, conf.tank_idle_pos_y+28/2, conf.ball_mx, conf.ball_my)
+        conf.ball_mx, conf.ball_my = ball.shoot(ball1, tank_sprite, Tank.tank1_x+25/2, Tank.tank1_y+28/2, conf.ball_mx, conf.ball_my)
         conf.timer_on = True
         conf.shoot = False
     if conf.hit:
@@ -117,7 +127,7 @@ while True:
         conf.timer_on = False
         conf.hit = False
     if conf.shoot2:
-        conf.ball2_mx, conf.ball2_my = ball.shoot(ball2, tank_sprite, conf.tank_idle_pos_x+25/2, conf.tank_idle_pos_y+28/2, conf.ball2_mx, conf.ball2_my)
+        conf.ball2_mx, conf.ball2_my = ball.shoot(ball2, tank2_sprite, Tank.tank2_x+25/2, Tank.tank2_y+28/2, conf.ball2_mx, conf.ball2_my)
         conf.timer_on2 = True
         conf.shoot2 = False
     if conf.hit2:
@@ -129,64 +139,188 @@ while True:
     conf.ball2_mx, conf.ball2_my = ball.limit_wall_collision(ball2, conf.ball2_mx, conf.ball2_my,
                                                            conf.screen_width, conf.screen_height)
     # ball collision with tank rect
-    if tank.colliderect(ball1):
+    if tank2_rect.colliderect(ball1):
         # use whatever tank collision functions with the ball you have here
-        conf.hit = True
+        conf.hit2 = True
         score_p_1 += 1
-        hit = pygame.mixer.Sound(TANK_HIT)
+        hit = pygame.mixer.Sound(conf.TANK_HIT)
         pygame.mixer.Sound.play(hit)
         hit.set_volume(0.1)
-    if tank.colliderect(ball2):
+    if tank1_rect.colliderect(ball2):
         # use whatever tank collision functions with the ball you have here
         # change tank
-        conf.hit2 = True
-        score_p_2 += 1
-        hit = pygame.mixer.Sound(TANK_HIT)
+        hit = pygame.mixer.Sound(conf.TANK_HIT)
         pygame.mixer.Sound.play(hit)
-        hit.set_volume(0.1)
+        conf.hit1 = True
+        score_p_2 += 1
 
 
     # keyboard inputs
-    if pygame.key.get_pressed()[K_w]:
-        conf.tank1_speed_y -= 1
-        walk = pygame.mixer.Sound(TANK_WALK)
-        pygame.mixer.Sound.play(walk)
-        walk.set_volume(0.1)
     if pygame.key.get_pressed()[K_r]:
         conf.hit = True
-    if pygame.key.get_pressed()[K_r]:
+    if pygame.key.get_pressed()[K_t]:
         conf.hit2 = True
-    if pygame.key.get_pressed()[K_s]:
-        conf.tank1_speed_y += 1
-        walk = pygame.mixer.Sound(TANK_WALK)
-        pygame.mixer.Sound.play(walk)
-        walk.set_volume(0.1)
     if pygame.key.get_pressed()[K_c]:
+        shoot = pygame.mixer.Sound(conf.TANK_SHOOT)
+        pygame.mixer.Sound.play(shoot)
+        shoot.set_volume(0.05)
         if conf.timer_on:
             conf.shoot = conf.shoot
         else:
             conf.shoot = True
-        shoot = pygame.mixer.Sound(TANK_SHOOT)
+    if pygame.key.get_pressed()[K_v]:
+        shoot = pygame.mixer.Sound(conf.TANK_SHOOT)
         pygame.mixer.Sound.play(shoot)
         shoot.set_volume(0.05)
-    if pygame.key.get_pressed()[K_v]:
         if conf.timer_on2:
             conf.shoot2 = conf.shoot2
         else:
             conf.shoot2 = True
-        shoot = pygame.mixer.Sound(TANK_SHOOT)
-        pygame.mixer.Sound.play(shoot)
-        shoot.set_volume(0.05)
+
     if pygame.key.get_pressed()[K_a]:
-        conf.tank1_speed_x -= 1
-        rotate = pygame.mixer.Sound(TANK_ROTATE)
+        rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
         pygame.mixer.Sound.play(rotate)
         rotate.set_volume(0.1)
+        Tank.tank1_index -= 1
+        if Tank.tank1_index < 0:
+            Tank.tank1_index = 15
     if pygame.key.get_pressed()[K_d]:
-        conf.tank1_speed_x += 1
-        rotate = pygame.mixer.Sound(TANK_ROTATE)
+        rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
         pygame.mixer.Sound.play(rotate)
         rotate.set_volume(0.1)
+        Tank.tank1_index += 1
+        if Tank.tank1_index > 15:
+            Tank.tank1_index = 0
+    if pygame.key.get_pressed()[K_LEFT]:
+        rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
+        pygame.mixer.Sound.play(rotate)
+        rotate.set_volume(0.1)
+        Tank.tank2_index -= 1
+        if Tank.tank2_index < 0:
+            Tank.tank2_index = 15
+    if pygame.key.get_pressed()[K_RIGHT]:
+        rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
+        pygame.mixer.Sound.play(rotate)
+        rotate.set_volume(0.1)
+        Tank.tank2_index += 1
+        if Tank.tank2_index > 15:
+            Tank.tank2_index = 0
+        # Movimentação tanque 1
+    if pygame.key.get_pressed()[K_w]:
+        walk = pygame.mixer.Sound(conf.TANK_WALK)
+        pygame.mixer.Sound.play(walk)
+        walk.set_volume(0.1)
+        # Esquerda
+        if Tank.tank1_index == 0:
+            Tank.tank1_x += 0.27
+        # Esquerda baixo
+        if Tank.tank1_index == 1:
+            Tank.tank1_x += 0.27
+            Tank.tank1_y -= 0.2
+        if Tank.tank1_index == 2:
+            Tank.tank1_x += 0.27
+            Tank.tank1_y -= 0.27
+        if Tank.tank1_index == 3:
+            Tank.tank1_x += 0.2
+            Tank.tank1_y -= 0.27
+        # Baixo
+        if Tank.tank1_index == 4:
+            Tank.tank1_y -= 0.27
+        # Baixo direita
+        if Tank.tank1_index == 5:
+            Tank.tank1_y -= 0.27
+            Tank.tank1_x -= 0.2
+        if Tank.tank1_index == 6:
+            Tank.tank1_y -= 0.27
+            Tank.tank1_x -= 0.27
+        if Tank.tank1_index == 7:
+            Tank.tank1_y -= 0.2
+            Tank.tank1_x -= 0.27
+        # Direita
+        if Tank.tank1_index == 8:
+            Tank.tank1_x -= 0.27
+        # Direita cima
+        if Tank.tank1_index == 9:
+            Tank.tank1_y += 0.2
+            Tank.tank1_x -= 0.27
+        if Tank.tank1_index == 10:
+            Tank.tank1_y += 0.2
+            Tank.tank1_x -= 0.27
+        if Tank.tank1_index == 11:
+            Tank.tank1_y += 0.27
+            Tank.tank1_x -= 0.2
+        # Encima
+        if Tank.tank1_index == 12:
+            Tank.tank1_y += 0.27
+        # Esquerda cima
+        if Tank.tank1_index == 13:
+            Tank.tank1_x += 0.2
+            Tank.tank1_y += 0.27
+        if Tank.tank1_index == 14:
+            Tank.tank1_x += 0.27
+            Tank.tank1_y += 0.27
+        if Tank.tank1_index == 15:
+            Tank.tank1_x += 0.27
+            Tank.tank1_y += 0.2
+
+            # Movimentação tanque 2
+    if pygame.key.get_pressed()[K_UP]:
+        walk = pygame.mixer.Sound(conf.TANK_WALK)
+        pygame.mixer.Sound.play(walk)
+        walk.set_volume(0.1)
+        # Esquerda
+        if Tank.tank2_index == 0:
+            Tank.tank2_x -= 0.27
+        # Esquerda baixo
+        if Tank.tank2_index == 1:
+            Tank.tank2_x -= 0.27
+            Tank.tank2_y += 0.2
+        if Tank.tank2_index == 2:
+            Tank.tank2_x -= 0.27
+            Tank.tank2_y += 0.27
+        if Tank.tank2_index == 3:
+            Tank.tank2_x -= 0.2
+            Tank.tank2_y += 0.27
+        # Baixo
+        if Tank.tank2_index == 4:
+            Tank.tank2_y += 0.27
+        # Baixo direita
+        if Tank.tank2_index == 5:
+            Tank.tank2_y += 0.27
+            Tank.tank2_x += 0.2
+        if Tank.tank2_index == 6:
+            Tank.tank2_y += 0.27
+            Tank.tank2_x += 0.27
+        if Tank.tank2_index == 7:
+            Tank.tank2_y += 0.2
+            Tank.tank2_x += 0.27
+        # Direita
+        if Tank.tank2_index == 8:
+            Tank.tank2_x += 0.27
+        # Direita cima
+        if Tank.tank2_index == 9:
+            Tank.tank2_y -= 0.2
+            Tank.tank2_x += 0.27
+        if Tank.tank2_index == 10:
+            Tank.tank2_y -= 0.2
+            Tank.tank2_x += 0.27
+        if Tank.tank2_index == 11:
+            Tank.tank2_y -= 0.27
+            Tank.tank2_x += 0.2
+        # Encima
+        if Tank.tank2_index == 12:
+            Tank.tank2_y -= 0.27
+        # Esquerda cima
+        if Tank.tank2_index == 13:
+            Tank.tank2_x -= 0.2
+            Tank.tank2_y -= 0.27
+        if Tank.tank2_index == 14:
+            Tank.tank2_x -= 0.27
+            Tank.tank2_y -= 0.27
+        if Tank.tank2_index == 15:
+            Tank.tank2_x -= 0.27
+            Tank.tank2_y -= 0.2
+
     # score
     score_1 = display_score(score_p_1, 40, (141, 197, 80))
     score_2 = display_score(score_p_2, 40, (78, 89, 221))
@@ -198,6 +332,7 @@ while True:
         ball.draw_ball(screen, conf.LIGHT_GREEN, ball1)
     if conf.timer_on2:
         ball.draw_ball(screen, conf.VIOLET, ball2)
+
     pygame.display.flip()
     pygame.display.update()
     clock.tick(60)
