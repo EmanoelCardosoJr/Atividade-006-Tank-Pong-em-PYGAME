@@ -14,7 +14,7 @@ screen = pygame.display.set_mode((conf.screen_height, conf.screen_width))
 ball1 = ball.create_ball(conf.screen_height+100, conf.screen_width+100)
 ball2 = ball.create_ball(conf.screen_height+100, conf.screen_width+100)
 pygame.time.set_timer(pygame.USEREVENT, 1000)
-tank_sprite = "img/player1_06.png"
+tank_sprite = "img/player1_02.png"
 tank_test = pygame.image.load(tank_sprite)
 pygame.display.set_caption('Combat')
 clock = pygame.time.Clock()
@@ -29,7 +29,7 @@ while True:
             exit()
         if conf.timer_on:
             if event.type == pygame.USEREVENT:
-                conf.time_counter -= 0
+                conf.time_counter -= 1
                 conf.time_text = (
                     str(conf.time_counter).rjust(3)
                     if conf.time_counter > 0
@@ -44,7 +44,7 @@ while True:
             conf.time_counter = 5
         if conf.timer_on2:
             if event.type == pygame.USEREVENT:
-                conf.time_counter2 -= 0
+                conf.time_counter2 -= 1
                 conf.time_text2 = (
                     str(conf.time_counter2).rjust(3)
                     if conf.time_counter2 > 0
@@ -79,16 +79,35 @@ while True:
 
     for obs in obstacles.obstacles_list:
         if obs.colliderect(ball1):
-            conf.ball_mx *= -1 if randint(-3, 3) > 0 else 1
-            conf.ball_my *= -1 if randint(-3, 3) > 0 else 1
+            if conf.ball_my == 0:
+                conf.ball_my = 5 if randint(1,3) == 1 else 5
+            if conf.ball_mx == 0:
+                conf.ball_mx = 5 if randint(1,3) == 1 else 5
+            conf.ball_mx *= -1
+            conf.wiggle_cont += 1
+            if conf.wiggle_cont >5:
+                conf.ball_my *= -1
+                conf.ball_mx *= -1  if randint(1,3) == 1 else 1
+                conf.wiggle_cont = 0
+
+
         if obs.colliderect(ball2):
-            conf.ball2_mx *= -1 if randint(-3, 3) > 0 else 1
-            conf.ball2_my *= -1 if randint(-3, 3) > 0 else 1
+            if conf.ball2_my == 0:
+                conf.ball2_my = 5 if randint(1,3) == 1 else 5
+            if conf.ball2_mx == 0:
+                conf.ball2_mx = 5 if randint(1,3) == 1 else 5
+            conf.ball2_mx *= -1
+            conf.wiggle_cont2 += 1
+            if conf.wiggle_cont2 > 5:
+                conf.ball2_my *= -1
+                conf.wiggle_cont2 = 0
 
     # colisão e movimento da bola
 
-    ball.move_ball(ball1, conf.ball_mx, conf.ball_my)
-    ball.move_ball(ball2, conf.ball2_mx, conf.ball2_my)
+    if conf.timer_on:
+        ball.move_ball(ball1, conf.ball_mx, conf.ball_my)
+    if conf.timer_on2:
+        ball.move_ball(ball2, conf.ball2_mx, conf.ball2_my)
     if conf.shoot:
         conf.ball_mx, conf.ball_my = ball.shoot(ball1, tank_sprite, conf.tank_idle_pos_x+25/2, conf.tank_idle_pos_y+28/2, conf.ball_mx, conf.ball_my)
         conf.timer_on = True
@@ -149,6 +168,7 @@ while True:
         conf.tank1_speed_x -= 1
     if pygame.key.get_pressed()[K_d]:
         conf.tank1_speed_x += 1
+
     # score
     score_1 = display_score(score_p_1, 40, (141, 197, 80))
     score_2 = display_score(score_p_2, 40, (78, 89, 221))
@@ -156,8 +176,10 @@ while True:
     screen.blit(score_1, (180, 0.5))
     screen.blit(score_2, (580, 0.5))
 
-    ball.draw_ball(screen, conf.WHITE, ball1)
-    ball.draw_ball(screen, conf.BLUE, ball2)
+    if conf.timer_on:
+        ball.draw_ball(screen, conf.WHITE, ball1)
+    if conf.timer_on2:
+        ball.draw_ball(screen, conf.BLUE, ball2)
     pygame.display.flip()
     pygame.display.update()
     clock.tick(60)
