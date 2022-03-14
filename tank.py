@@ -1,4 +1,4 @@
-
+import pygame
 from pygame.locals import *
 from sys import exit
 screen_width, screen_height = 700, 800
@@ -23,7 +23,6 @@ tank1_x = 30
 tank1_y = 350
 tank2_x = 740
 tank2_y = 350
-
 def add_tank1 (tank1_index, tank1_x, tank1_y):
     p1_img0 = pygame.image.load('img/player1_00.png')
     p1_img1 = pygame.image.load('img/player1_01.png')
@@ -43,10 +42,15 @@ def add_tank1 (tank1_index, tank1_x, tank1_y):
     p1_img15 = pygame.image.load('img/player1_15.png')
     player1 = [p1_img0, p1_img1, p1_img2, p1_img3, p1_img4, p1_img5, p1_img6, p1_img7,
                p1_img8, p1_img9, p1_img10, p1_img11, p1_img12, p1_img13, p1_img14, p1_img15]
+    player1_img = ['img/player1_00.png', 'img/player1_01.png', 'img/player1_02.png', 'img/player1_03.png', 'img/player1_04.png',
+                  'img/player1_05.png', 'img/player1_06.png', 'img/player1_07.png', 'img/player1_08.png', 'img/player1_09.png',
+                  'img/player1_10.png', 'img/player1_11.png', 'img/player1_12.png', 'img/player1_13.png', 'img/player1_14.png',
+                  'img/player1_15.png']
     screen.blit(player1[int(tank1_index)], (tank1_x, tank1_y))
-    return player1[tank1_index]
+    return player1_img[tank1_index]
 
 def add_tank2 (tank2_index, tank2_x, tank2_y):
+
     p2_img0 = pygame.image.load('img/player2_00.png')
     p2_img1 = pygame.image.load('img/player2_01.png')
     p2_img2 = pygame.image.load('img/player2_02.png')
@@ -65,36 +69,13 @@ def add_tank2 (tank2_index, tank2_x, tank2_y):
     p2_img15 = pygame.image.load('img/player2_15.png')
     player2 = [p2_img0, p2_img1, p2_img2, p2_img3, p2_img4, p2_img5, p2_img6, p2_img7,
                p2_img8, p2_img9, p2_img10, p2_img11, p2_img12, p2_img13, p2_img14, p2_img15]
+    player2_img = ['img/player2_00.png', 'img/player2_01.png', 'img/player2_02.png', 'img/player2_03.png', 'img/player2_04.png',
+                  'img/player2_05.png', 'img/player2_06.png', 'img/player2_07.png', 'img/player2_08.png', 'img/player2_09.png',
+                  'img/player2_10.png', 'img/player2_11.png', 'img/player2_12.png', 'img/player2_13.png', 'img/player2_14.png',
+                  'img/player2_15.png']
     screen.blit(player2[int(tank2_index)], (tank2_x, tank2_y))
-    return player2[tank2_index]
+    return player2_img[tank2_index]
 
-
-while True:
-    screen.fill((0, 0, 0))
-
-
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
-            exit()
-
-        if event.type == KEYDOWN:
-            if event.key == K_a:
-                tank1_index -= 1
-                if tank1_index < 0:
-                    tank1_index = 15
-            if event.key == K_d:
-                tank1_index += 1
-                if tank1_index > 15:
-                    tank1_index = 0
-            if event.key == K_LEFT:
-                tank2_index -= 1
-                if tank2_index < 0:
-                    tank2_index = 15
-            if event.key == K_RIGHT:
-                tank2_index += 1
-                if tank2_index > 15:
-                    tank2_index = 0
     # Movimentação tanque 1
     if pygame.key.get_pressed()[K_w]:
         # Esquerda
@@ -148,9 +129,9 @@ while True:
             tank1_y += 0.27
         if tank1_index == 15:
             tank1_x += 0.27
-            tank1_y += 0.2                
-    
-    # Movimentação tanque 2
+            tank1_y += 0.2
+
+            # Movimentação tanque 2
     if pygame.key.get_pressed()[K_UP]:
         # Esquerda
         if tank2_index == 0:
@@ -205,7 +186,5 @@ while True:
             tank2_x -= 0.27
             tank2_y -= 0.2
 
-    add_tank1(tank1_index, tank1_x, tank1_y)
-    add_tank2(tank2_index, tank2_x, tank2_y)
-    pygame.display.update()
+
 
