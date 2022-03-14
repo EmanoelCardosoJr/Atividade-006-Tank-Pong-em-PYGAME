@@ -37,8 +37,14 @@ while True:
         else:
             conf.time_text = "5".rjust(3)
             conf.time_counter = 5
+
+
     # Desenho do tanque
+
+
     tank = pygame.draw.rect(screen, conf.WHITE, (conf.tank1_speed_x, conf.tank1_speed_y, 15, 15))
+
+
     # Desenho das paredes e cenário
 
     pygame.draw.line(screen, conf.YELLOW, (0, 60), (0, 670), 20)  # Parede esquerda
@@ -85,7 +91,7 @@ while True:
     pygame.draw.rect(screen, conf.YELLOW, (460, 455, 70, 25))  # Bloco meio inferior direito
     pygame.draw.rect(screen, conf.YELLOW, (505, 435, 25, 25))
 
-# colisão e movimento da bola
+    # colisão e movimento da bola
 
     ball.move_ball(ball1, conf.ball_mx, conf.ball_my)
     if conf.shoot:
@@ -96,9 +102,13 @@ while True:
         conf.ball_mx, conf.ball_my = ball.end_ball(ball1, conf.ball_mx, conf.ball_my)
         conf.timer_on = False
         conf.hit = False
-
+    # ball collision with wall
     conf.ball_mx, conf.ball_my = ball.limit_wall_collision(ball1, conf.ball_mx, conf.ball_my, conf.screen_width, conf.screen_height)
-
+    # ball collision with tank rect
+    if tank.colliderect(ball1):
+        # use whatever tank collision functions with the ball you have here
+        ball.end_ball(ball1, conf.ball_mx, conf.ball_my)
+    # keyboard inputs
     if pygame.key.get_pressed()[K_w]:
 
         conf.tank1_speed_y -= 1
