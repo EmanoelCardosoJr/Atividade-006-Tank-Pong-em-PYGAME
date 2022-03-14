@@ -177,9 +177,9 @@ while True:
     screen.blit(score_2, (580, 0.5))
 
     if conf.timer_on:
-        ball.draw_ball(screen, conf.WHITE, ball1)
+        ball.draw_ball(screen, conf.LIGHT_GREEN, ball1)
     if conf.timer_on2:
-        ball.draw_ball(screen, conf.BLUE, ball2)
+        ball.draw_ball(screen, conf.VIOLET, ball2)
     pygame.display.flip()
     pygame.display.update()
     clock.tick(60)

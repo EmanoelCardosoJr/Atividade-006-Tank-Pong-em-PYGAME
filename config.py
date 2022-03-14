@@ -25,6 +25,8 @@ BLUE = (0, 0, 100)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 YELLOW = (250, 150, 0)
+LIGHT_GREEN = (2, 250, 0)
+VIOLET = (2, 9, 250)
 # ball
 ball_mx = 0
 ball_my = 0
