@@ -46,3 +46,7 @@ TANK_HIT = "sound/cannon_hit.mp3"
 TANK_ROTATE = "sound/rotate.mp3"
 TANK_SHOOT = "sound/shoot.mp3"
 TANK_WALK = "sound/walk.mp3"
+cant_go = False
+cant_go2 = False
+unlock_cont = 0
+unlock_cont2 = 0

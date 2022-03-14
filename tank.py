@@ -23,6 +23,8 @@ tank1_x = 30
 tank1_y = 350
 tank2_x = 740
 tank2_y = 350
+def create_tank(tank_pos_x, tank_pos_y, tank_size):
+        return pygame.Rect(tank_pos_x, tank_pos_y, tank_size, tank_size)
 def add_tank1 (tank1_index, tank1_x, tank1_y):
     p1_img0 = pygame.image.load('img/player1_00.png')
     p1_img1 = pygame.image.load('img/player1_01.png')
