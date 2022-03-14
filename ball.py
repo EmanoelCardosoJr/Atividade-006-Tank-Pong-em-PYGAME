@@ -93,10 +93,12 @@ def limit_wall_collision(ball, ball_mx, ball_my, height, width):
     # collision with the upper wall
 
     if ball.y < 0 + 80:
+
         # when the ball is in idle mode outside the screen
         if ball.x == conf.screen_width+100 and ball.y == conf.screen_height+100:
             return ball_mx, ball_my
         else:
+            ball.y = 0 + 80
             # the actual collision
             if(ball_my != 5) and (ball_my != -5):
                 if ball_my > 0:
@@ -121,10 +123,12 @@ def limit_wall_collision(ball, ball_mx, ball_my, height, width):
     # collision with the lower wall
 
     elif ball.y > height - 50:
+
         # when the ball is in idle mode outside the screen
         if ball.x == conf.screen_width + 100 and ball.y == conf.screen_height + 100:
             return ball_mx, ball_my
         else:
+            ball.y = height - 50
             # the actual collision
 
             if (ball_my != 5) and (ball_my != -5):
@@ -156,6 +160,7 @@ def limit_wall_collision(ball, ball_mx, ball_my, height, width):
         if ball.x == conf.screen_width + 100 and ball.y == conf.screen_height + 100:
             return ball_mx, ball_my
         else:
+            ball.x = 0 + 15
             # the actual collision
 
             if ball_my == 0:
@@ -182,10 +187,12 @@ def limit_wall_collision(ball, ball_mx, ball_my, height, width):
     # collision with right wall
 
     elif ball.x > width - 30:
+
         # when the ball is in idle mode outside the screen
         if ball.x == conf.screen_width + 100 and ball.y == conf.screen_height + 100:
             return ball_mx, ball_my
         else:
+            ball.x = width - 30
             # the actual collision
             if ball_my == 0:
                 ball_my = 5 if randint(-3, 3) > 0 else -5
