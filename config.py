@@ -5,8 +5,8 @@ pygame.init()
 screen_width = 700
 screen_height = 800
 # time
-time_text = "3".rjust(3)
-time_counter = 3
+time_text = "5".rjust(3)
+time_counter = 5
 # score
 score_p_1 = 0
 score_p_2 = 0
