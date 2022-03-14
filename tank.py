@@ -95,8 +95,60 @@ while True:
                 tank2_index += 1
                 if tank2_index > 15:
                     tank2_index = 0
-
-
+    
+    if pygame.key.get_pressed()[K_UP]:
+        # Esquerda
+        if tank2_index == 0:
+            tank2_x -= 0.27
+        # Esquerda baixo
+        if tank2_index == 1:
+            tank2_x -= 0.27
+            tank2_y += 0.2
+        if tank2_index == 2:
+            tank2_x -= 0.27
+            tank2_y += 0.27
+        if tank2_index == 3:
+            tank2_x -= 0.2
+            tank2_y += 0.27
+        # Baixo
+        if tank2_index == 4:
+            tank2_y += 0.27
+        # Baixo direita
+        if tank2_index == 5:
+            tank2_y += 0.27
+            tank2_x += 0.2
+        if tank2_index == 6:
+            tank2_y += 0.27
+            tank2_x += 0.27
+        if tank2_index == 7:
+            tank2_y += 0.2
+            tank2_x += 0.27
+        # Direita
+        if tank2_index == 8:
+            tank2_x += 0.27
+        # Direita cima
+        if tank2_index == 9:
+            tank2_y -= 0.2
+            tank2_x += 0.27
+        if tank2_index == 10:
+            tank2_y -= 0.2
+            tank2_x += 0.27
+        if tank2_index == 11:
+            tank2_y -= 0.27
+            tank2_x += 0.2
+        # Encima
+        if tank2_index == 12:
+            tank2_y -= 0.27
+        # Esquerda cima
+        if tank2_index == 13:
+            tank2_x -= 0.2
+            tank2_y -= 0.27
+        if tank2_index == 14:
+            tank2_x -= 0.27
+            tank2_y -= 0.27
+        if tank2_index == 15:
+            tank2_x -= 0.27
+            tank2_y -= 0.2
 
     add_tank1(tank1_index, tank1_x, tank1_y)
     add_tank2(tank2_index, tank2_x, tank2_y)
