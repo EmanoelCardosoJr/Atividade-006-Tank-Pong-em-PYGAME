@@ -164,17 +164,18 @@ while True:
     # ball collision with tank rect
     if tank2_rect.colliderect(ball1):
         # use whatever tank collision functions with the ball you have here
-        conf.hit2 = True
+        conf.ball_mx, conf.ball_my = ball.end_ball(ball1, conf.ball_mx, conf.ball_my)
+
         score_p_1 += 1
-        #hit = pygame.mixer.Sound(conf.TANK_HIT)
-        #pygame.mixer.Sound.play(hit)
-        #hit.set_volume(0.1)
+        hit = pygame.mixer.Sound(conf.TANK_HIT)
+        pygame.mixer.Sound.play(hit)
+        hit.set_volume(0.1)
     if tank1_rect.colliderect(ball2):
         # use whatever tank collision functions with the ball you have here
         # change tank
-        #hit = pygame.mixer.Sound(conf.TANK_HIT)
-        #pygame.mixer.Sound.play(hit)
-        conf.hit1 = True
+        hit = pygame.mixer.Sound(conf.TANK_HIT)
+        pygame.mixer.Sound.play(hit)
+        conf.ball2_mx, conf.ball2_my = ball.end_ball(ball2, conf.ball2_mx, conf.ball2_my)
         score_p_2 += 1
 
 
@@ -184,47 +185,47 @@ while True:
     if pygame.key.get_pressed()[K_t]:
         conf.hit2 = True
     if pygame.key.get_pressed()[K_c]:
-        #shoot = pygame.mixer.Sound(conf.TANK_SHOOT)
-        #pygame.mixer.Sound.play(shoot)
-        #shoot.set_volume(0.05)
+        shoot = pygame.mixer.Sound(conf.TANK_SHOOT)
+        pygame.mixer.Sound.play(shoot)
+        shoot.set_volume(0.05)
         if conf.timer_on:
             conf.shoot = conf.shoot
         else:
             conf.shoot = True
     if pygame.key.get_pressed()[K_v]:
-        #shoot = pygame.mixer.Sound(conf.TANK_SHOOT)
-        #pygame.mixer.Sound.play(shoot)
-        ##shoot.set_volume(0.05)
+        shoot = pygame.mixer.Sound(conf.TANK_SHOOT)
+        pygame.mixer.Sound.play(shoot)
+        shoot.set_volume(0.05)
         if conf.timer_on2:
             conf.shoot2 = conf.shoot2
         else:
             conf.shoot2 = True
 
     if pygame.key.get_pressed()[K_a]:
-        #rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
-        #pygame.mixer.Sound.play(rotate)
-        #rotate.set_volume(0.1)
+        rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
+        pygame.mixer.Sound.play(rotate)
+        rotate.set_volume(0.1)
         Tank.tank1_index -= 1
         if Tank.tank1_index < 0:
             Tank.tank1_index = 15
     if pygame.key.get_pressed()[K_d]:
-        #rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
-        #pygame.mixer.Sound.play(rotate)
-        #rotate.set_volume(0.1)
+        rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
+        pygame.mixer.Sound.play(rotate)
+        rotate.set_volume(0.1)
         Tank.tank1_index += 1
         if Tank.tank1_index > 15:
             Tank.tank1_index = 0
     if pygame.key.get_pressed()[K_LEFT]:
-        #rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
-        #pygame.mixer.Sound.play(rotate)
-       # rotate.set_volume(0.1)
+        rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
+        pygame.mixer.Sound.play(rotate)
+        rotate.set_volume(0.1)
         Tank.tank2_index -= 1
         if Tank.tank2_index < 0:
             Tank.tank2_index = 15
     if pygame.key.get_pressed()[K_RIGHT]:
-        #rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
-        #pygame.mixer.Sound.play(rotate)
-        #rotate.set_volume(0.1)
+        rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
+        pygame.mixer.Sound.play(rotate)
+        rotate.set_volume(0.1)
         Tank.tank2_index += 1
         if Tank.tank2_index > 15:
             Tank.tank2_index = 0
@@ -233,9 +234,9 @@ while True:
         conf.shoot = conf.shoot
     else:
         if pygame.key.get_pressed()[K_w]:
-            #walk = pygame.mixer.Sound(conf.TANK_WALK)
-           # pygame.mixer.Sound.play(walk)
-           # walk.set_volume(0.1)
+            walk = pygame.mixer.Sound(conf.TANK_WALK)
+            pygame.mixer.Sound.play(walk)
+            walk.set_volume(0.1)
             # Esquerda
             if Tank.tank1_index == 0:
                 Tank.tank1_x += 0.27
@@ -294,9 +295,9 @@ while True:
         conf.shoot = conf.shoot
     else:
         if pygame.key.get_pressed()[K_UP]:
-            #walk = pygame.mixer.Sound(conf.TANK_WALK)
-            #pygame.mixer.Sound.play(walk)
-            #walk.set_volume(0.1)
+            walk = pygame.mixer.Sound(conf.TANK_WALK)
+            pygame.mixer.Sound.play(walk)
+            walk.set_volume(0.1)
             # Esquerda
             if Tank.tank2_index == 0:
                 Tank.tank2_x -= 0.27
