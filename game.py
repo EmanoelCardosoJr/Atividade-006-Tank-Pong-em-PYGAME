@@ -37,7 +37,7 @@ while True:
     # ball speed correction
     ball.speed_correct()
     # obstacle collision with tank
-    obstacles.obstacle_collision(tank1, tank2, ball1, ball2)
+    obstacles.obstacle_collision(tank1, tank2, ball1, ball2, obstacles_list)
     # ball movement and collision
     ball.ball_shoot_and_hit(ball1, ball2, tank_sprite, conf.tank1_x, conf.tank1_y, tank2_sprite,
                             conf.tank2_x, conf.tank2_y)

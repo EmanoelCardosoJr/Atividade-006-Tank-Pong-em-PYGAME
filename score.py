@@ -1,6 +1,6 @@
 import pygame
-from config import Config
-conf = Config()
+import config
+conf = config
 
 
 def display_score(score_value, size, color):

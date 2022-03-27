@@ -2,8 +2,8 @@ from pygame import QUIT
 
 import pygame
 import ball
-from config import Config
-conf = Config()
+import config
+conf = config
 
 
 def timer(ball1, ball2):

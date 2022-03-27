@@ -146,9 +146,9 @@ def speed_correct():
         conf.ball2_my = 5 if randint(1, 3) == 1 else 5
     if conf.ball2_mx == 0:
         conf.ball2_mx = 5 if randint(1, 3) == 1 else 5
-    if conf.ball1_my == 0:
+    if conf.ball_my == 0:
         conf.ball1_my = 5 if randint(1, 3) == 1 else 5
-    if conf.ball1_mx == 0:
+    if conf.ball_mx == 0:
         conf.ball1_mx = 5 if randint(1, 3) == 1 else 5
 
 def limit_wall_collision(ball, ball_mx, ball_my, height, width):
