@@ -134,17 +134,22 @@ def draw_ball(display, color, ball):
     pygame.draw.ellipse(display, color, ball)
 
 
-def shooting_accel(tank_x, tank_y):
-    ball_mx, ball_my = tank_x, tank_y
-    return ball_mx, ball_my
-
 
 def move_ball(ball, ball_dx, ball_dy):
     ball.x += ball_dx
     ball.y += ball_dy
 
 
-
+def speed_correct():
+    # ball speed correction
+    if conf.ball2_my == 0:
+        conf.ball2_my = 5 if randint(1, 3) == 1 else 5
+    if conf.ball2_mx == 0:
+        conf.ball2_mx = 5 if randint(1, 3) == 1 else 5
+    if conf.ball1_my == 0:
+        conf.ball1_my = 5 if randint(1, 3) == 1 else 5
+    if conf.ball1_mx == 0:
+        conf.ball1_mx = 5 if randint(1, 3) == 1 else 5
 
 def limit_wall_collision(ball, ball_mx, ball_my, height, width):
 
@@ -276,3 +281,67 @@ def limit_wall_collision(ball, ball_mx, ball_my, height, width):
     else:
         return ball_mx, ball_my
 
+def ball_shoot_and_hit(ball1, ball2, tank_sprite, tank1_x, tank1_y, tank2_sprite, tank2_x, tank2_y):
+    if conf.timer_on:
+        move_ball(ball1, conf.ball_mx, conf.ball_my)
+    if conf.timer_on2:
+        move_ball(ball2, conf.ball2_mx, conf.ball2_my)
+    if conf.shoot:
+        conf.ball_mx, conf.ball_my = shoot(
+            ball1,
+            tank_sprite,
+            tank1_x + 25 / 2,
+            tank1_y + 28 / 2,
+            conf.ball_mx,
+            conf.ball_my,
+        )
+        conf.timer_on = True
+        conf.shoot = False
+    if conf.hit:
+        conf.ball_mx, conf.ball_my = end_ball(
+            ball1, conf.ball_mx, conf.ball_my
+        )
+        conf.timer_on = False
+        conf.hit = False
+    if conf.shoot2:
+        conf.ball2_mx, conf.ball2_my = shoot(
+            ball2,
+            tank2_sprite,
+            tank2_x + 25 / 2,
+            tank2_y + 28 / 2,
+            conf.ball2_mx,
+            conf.ball2_my,
+        )
+        conf.timer_on2 = True
+        conf.shoot2 = False
+    if conf.hit2:
+        conf.ball2_mx, conf.ball2_my = end_ball(
+            ball2, conf.ball2_mx, conf.ball2_my
+        )
+        conf.timer_on2 = False
+        conf.hit2 = False
+
+def ball_collision_with_tank(score_p_1, tank2_rect, ball1, ball, score_p_2, tank1_rect, ball2):
+    if tank2_rect.colliderect(ball1):
+        # use whatever tank collision functions with the ball you have here
+        conf.ball_mx, conf.ball_my = ball.end_ball(
+            ball1, conf.ball_mx, conf.ball_my
+        )
+
+        score_p_1 += 1
+        #hit = pygame.mixer.Sound(conf.TANK_HIT)
+        #pygame.mixer.Sound.play(hit)
+        #hit.set_volume(0.1)
+    if tank1_rect.colliderect(ball2):
+        # use whatever tank collision functions with the ball you have here
+        #hit = pygame.mixer.Sound(conf.TANK_HIT)
+        #pygame.mixer.Sound.play(hit)
+        conf.ball2_mx, conf.ball2_my = ball.end_ball(
+            ball2, conf.ball2_mx, conf.ball2_my
+        )
+        score_p_2 += 1
+def ball_draw(screen, ball1, ball2):
+        if conf.timer_on:
+            draw_ball (screen, conf.LIGHT_GREEN, ball1)
+        if conf.timer_on2:
+            draw_ball (screen, conf.VIOLET, ball2)

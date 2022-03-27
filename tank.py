@@ -1,31 +1,17 @@
 import pygame
 from pygame.locals import *
-from sys import exit
-screen_width, screen_height = 700, 800
-tank_size = 32
+import config
 
-
-
-# Tela
-screen = pygame.display.set_mode((screen_height, screen_width))
-pygame.display.set_caption('Combat')
-
-
+conf = config
 
 pygame.init()
 
-# lista dos tanques
-tank1_index = 0
-tank2_index = 0
 
-# Posição dos tanques:
-tank1_x = 30
-tank1_y = 350
-tank2_x = 740
-tank2_y = 350
 def create_tank(tank_pos_x, tank_pos_y, tank_size):
-        return pygame.Rect(tank_pos_x, tank_pos_y, tank_size, tank_size)
-def add_tank1 (tank1_index, tank1_x, tank1_y):
+    return pygame.Rect(tank_pos_x, tank_pos_y, tank_size, tank_size)
+
+
+def add_tank1(screen, tank1_index, tank1_x, tank1_y):
     p1_img0 = pygame.image.load('img/player1_00.png')
     p1_img1 = pygame.image.load('img/player1_01.png')
     p1_img2 = pygame.image.load('img/player1_02.png')
@@ -51,7 +37,7 @@ def add_tank1 (tank1_index, tank1_x, tank1_y):
     screen.blit(player1[int(tank1_index)], (tank1_x, tank1_y))
     return player1_img[tank1_index]
 
-def add_tank2 (tank2_index, tank2_x, tank2_y):
+def add_tank2 (screen, tank2_index, tank2_x, tank2_y):
 
     p2_img0 = pygame.image.load('img/player2_00.png')
     p2_img1 = pygame.image.load('img/player2_01.png')
@@ -79,114 +65,176 @@ def add_tank2 (tank2_index, tank2_x, tank2_y):
     return player2_img[tank2_index]
 
     # Movimentação tanque 1
-    if pygame.key.get_pressed()[K_w]:
-        # Esquerda
-        if tank1_index == 0:
-            tank1_x += 0.27
-        # Esquerda baixo
-        if tank1_index == 1:
-            tank1_x += 0.27
-            tank1_y -= 0.2
-        if tank1_index == 2:
-            tank1_x += 0.27
-            tank1_y -= 0.27
-        if tank1_index == 3:
-            tank1_x += 0.2
-            tank1_y -= 0.27
-        # Baixo
-        if tank1_index == 4:
-            tank1_y -= 0.27
-        # Baixo direita
-        if tank1_index == 5:
-            tank1_y -= 0.27
-            tank1_x -= 0.2
-        if tank1_index == 6:
-            tank1_y -= 0.27
-            tank1_x -= 0.27
-        if tank1_index == 7:
-            tank1_y -= 0.2
-            tank1_x -= 0.27
-        # Direita
-        if tank1_index == 8:
-            tank1_x -= 0.27
-        # Direita cima
-        if tank1_index == 9:
-            tank1_y += 0.2
-            tank1_x -= 0.27
-        if tank1_index == 10:
-            tank1_y += 0.2
-            tank1_x -= 0.27
-        if tank1_index == 11:
-            tank1_y += 0.27
-            tank1_x -= 0.2
-        # Encima
-        if tank1_index == 12:
-            tank1_y += 0.27
-        # Esquerda cima
-        if tank1_index == 13:
-            tank1_x += 0.2
-            tank1_y += 0.27
-        if tank1_index == 14:
-            tank1_x += 0.27
-            tank1_y += 0.27
-        if tank1_index == 15:
-            tank1_x += 0.27
-            tank1_y += 0.2
 
+def tank_rect_follow(tankrect, tank_x, tank_y):
+    tankrect.x = tank_x
+    tankrect.y = tank_y
+def tank_input():
+    if pygame.key.get_pressed ()[K_r]:
+        conf.hit = True
+    if pygame.key.get_pressed ()[K_t]:
+        conf.hit2 = True
+    if pygame.key.get_pressed ()[K_c]:
+        #shoot = pygame.mixer.Sound (conf.TANK_SHOOT)
+        #pygame.mixer.Sound.play (shoot)
+        #shoot.set_volume (0.05)
+        if conf.timer_on:
+            conf.shoot = conf.shoot
+        else:
+            conf.shoot = True
+    if pygame.key.get_pressed ()[K_v]:
+        #shoot = pygame.mixer.Sound (conf.TANK_SHOOT)
+        #pygame.mixer.Sound.play (shoot)
+        #shoot.set_volume (0.05)
+        if conf.timer_on2:
+            conf.shoot2 = conf.shoot2
+        else:
+            conf.shoot2 = True
+    if pygame.key.get_pressed ()[K_a]:
+        #rotate = pygame.mixer.Sound (conf.TANK_ROTATE)
+        #pygame.mixer.Sound.play (rotate)
+        #rotate.set_volume (0.1)
+        conf.tank1_index -= 1
+        if conf.tank1_index < 0:
+            conf.tank1_index = 15
+    if pygame.key.get_pressed ()[K_d]:
+        #rotate = pygame.mixer.Sound (conf.TANK_ROTATE)
+        #pygame.mixer.Sound.play (rotate)
+        #rotate.set_volume (0.1)
+        conf.tank1_index += 1
+        if conf.tank1_index > 15:
+            conf.tank1_index = 0
+    if pygame.key.get_pressed ()[K_LEFT]:
+        #rotate = pygame.mixer.Sound (conf.TANK_ROTATE)
+        #pygame.mixer.Sound.play (rotate)
+        #rotate.set_volume (0.1)
+        conf.tank2_index -= 1
+        if conf.tank2_index < 0:
+            conf.tank2_index = 15
+    if pygame.key.get_pressed ()[K_RIGHT]:
+        #rotate = pygame.mixer.Sound (conf.TANK_ROTATE)
+        #pygame.mixer.Sound.play (rotate)
+        #rotate.set_volume (0.1)
+        conf.tank2_index += 1
+        if conf.tank2_index > 15:
+            conf.tank2_index = 0
+        # Movimentação tanque 1
+    if conf.cant_go:
+        conf.shoot = conf.shoot
+    else:
+        if pygame.key.get_pressed ()[K_w]:
+            #walk = pygame.mixer.Sound (conf.TANK_WALK)
+            #pygame.mixer.Sound.play (walk)
+            #walk.set_volume (0.1)
+            # Esquerda
+            if conf.tank1_index == 0:
+                conf.tank1_x += 0.27
+            # Esquerda baixo
+            if conf.tank1_index == 1:
+                conf.tank1_x += 0.27
+                conf.tank1_y -= 0.2
+            if conf.tank1_index == 2:
+                conf.tank1_x += 0.27
+                conf.tank1_y -= 0.27
+            if conf.tank1_index == 3:
+                conf.tank1_x += 0.2
+                conf.tank1_y -= 0.27
+            # Baixo
+            if conf.tank1_index == 4:
+                conf.tank1_y -= 0.27
+            # Baixo direita
+            if conf.tank1_index == 5:
+                conf.tank1_y -= 0.27
+                conf.tank1_x -= 0.2
+            if conf.tank1_index == 6:
+                conf.tank1_y -= 0.27
+                conf.tank1_x -= 0.27
+            if conf.tank1_index == 7:
+                conf.tank1_y -= 0.2
+                conf.tank1_x -= 0.27
+            # Direita
+            if conf.tank1_index == 8:
+                conf.tank1_x -= 0.27
+            # Direita cima
+            if conf.tank1_index == 9:
+                conf.tank1_y += 0.2
+                conf.tank1_x -= 0.27
+            if conf.tank1_index == 10:
+                conf.tank1_y += 0.2
+                conf.tank1_x -= 0.27
+            if conf.tank1_index == 11:
+                conf.tank1_y += 0.27
+                conf.tank1_x -= 0.2
+            # Encima
+            if conf.tank1_index == 12:
+                conf.tank1_y += 0.27
+            # Esquerda cima
+            if conf.tank1_index == 13:
+                conf.tank1_x += 0.2
+                conf.tank1_y += 0.27
+            if conf.tank1_index == 14:
+                conf.tank1_x += 0.27
+                conf.tank1_y += 0.27
+            if conf.tank1_index == 15:
+                conf.tank1_x += 0.27
+                conf.tank1_y += 0.2
             # Movimentação tanque 2
-    if pygame.key.get_pressed()[K_UP]:
-        # Esquerda
-        if tank2_index == 0:
-            tank2_x -= 0.27
-        # Esquerda baixo
-        if tank2_index == 1:
-            tank2_x -= 0.27
-            tank2_y += 0.2
-        if tank2_index == 2:
-            tank2_x -= 0.27
-            tank2_y += 0.27
-        if tank2_index == 3:
-            tank2_x -= 0.2
-            tank2_y += 0.27
-        # Baixo
-        if tank2_index == 4:
-            tank2_y += 0.27
-        # Baixo direita
-        if tank2_index == 5:
-            tank2_y += 0.27
-            tank2_x += 0.2
-        if tank2_index == 6:
-            tank2_y += 0.27
-            tank2_x += 0.27
-        if tank2_index == 7:
-            tank2_y += 0.2
-            tank2_x += 0.27
-        # Direita
-        if tank2_index == 8:
-            tank2_x += 0.27
-        # Direita cima
-        if tank2_index == 9:
-            tank2_y -= 0.2
-            tank2_x += 0.27
-        if tank2_index == 10:
-            tank2_y -= 0.2
-            tank2_x += 0.27
-        if tank2_index == 11:
-            tank2_y -= 0.27
-            tank2_x += 0.2
-        # Encima
-        if tank2_index == 12:
-            tank2_y -= 0.27
-        # Esquerda cima
-        if tank2_index == 13:
-            tank2_x -= 0.2
-            tank2_y -= 0.27
-        if tank2_index == 14:
-            tank2_x -= 0.27
-            tank2_y -= 0.27
-        if tank2_index == 15:
-            tank2_x -= 0.27
-            tank2_y -= 0.2
-
-
-
+    if conf.cant_go2:
+        conf.shoot = conf.shoot
+    else:
+        if pygame.key.get_pressed ()[K_UP]:
+            #walk = pygame.mixer.Sound (conf.TANK_WALK)
+            #pygame.mixer.Sound.play (walk)
+            #walk.set_volume (0.1)
+            # Esquerda
+            if conf.tank2_index == 0:
+                conf.tank2_x -= 0.27
+            # Esquerda baixo
+            if conf.tank2_index == 1:
+                conf.tank2_x -= 0.27
+                conf.tank2_y += 0.2
+            if conf.tank2_index == 2:
+                conf.tank2_x -= 0.27
+                conf.tank2_y += 0.27
+            if conf.tank2_index == 3:
+                conf.tank2_x -= 0.2
+                conf.tank2_y += 0.27
+            # Baixo
+            if conf.tank2_index == 4:
+                conf.tank2_y += 0.27
+            # Baixo direita
+            if conf.tank2_index == 5:
+                conf.tank2_y += 0.27
+                conf.tank2_x += 0.2
+            if conf.tank2_index == 6:
+                conf.tank2_y += 0.27
+                conf.tank2_x += 0.27
+            if conf.tank2_index == 7:
+                conf.tank2_y += 0.2
+                conf.tank2_x += 0.27
+            # Direita
+            if conf.tank2_index == 8:
+                conf.tank2_x += 0.27
+            # Direita cima
+            if conf.tank2_index == 9:
+                conf.tank2_y -= 0.2
+                conf.tank2_x += 0.27
+            if conf.tank2_index == 10:
+                conf.tank2_y -= 0.2
+                conf.tank2_x += 0.27
+            if conf.tank2_index == 11:
+                conf.tank2_y -= 0.27
+                conf.tank2_x += 0.2
+            # Encima
+            if conf.tank2_index == 12:
+                conf.tank2_y -= 0.27
+            # Esquerda cima
+            if conf.tank2_index == 13:
+                conf.tank2_x -= 0.2
+                conf.tank2_y -= 0.27
+            if conf.tank2_index == 14:
+                conf.tank2_x -= 0.27
+                conf.tank2_y -= 0.27
+            if conf.tank2_index == 15:
+                conf.tank2_x -= 0.27
+                conf.tank2_y -= 0.2

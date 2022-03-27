@@ -1,5 +1,6 @@
 import pygame
 
+
 pygame.init()
 # screen
 screen_width = 700
@@ -50,3 +51,10 @@ cant_go = False
 cant_go2 = False
 unlock_cont = 0
 unlock_cont2 = 0
+tank1_index = 0
+tank2_index = 0
+tank1_x = 30
+tank1_y = 350
+tank2_x = 740
+tank2_y = 350
+tank_size = 32
