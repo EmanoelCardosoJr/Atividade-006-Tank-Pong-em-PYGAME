@@ -6,10 +6,8 @@ conf = config
 
 pygame.init()
 
-
 def create_tank(tank_pos_x, tank_pos_y, tank_size):
     return pygame.Rect(tank_pos_x, tank_pos_y, tank_size, tank_size)
-
 
 def add_tank1(screen, tank1_index, tank1_x, tank1_y):
     p1_img0 = pygame.image.load('img/player1_00.png')
@@ -38,7 +36,6 @@ def add_tank1(screen, tank1_index, tank1_x, tank1_y):
     return player1_img[tank1_index]
 
 def add_tank2 (screen, tank2_index, tank2_x, tank2_y):
-
     p2_img0 = pygame.image.load('img/player2_00.png')
     p2_img1 = pygame.image.load('img/player2_01.png')
     p2_img2 = pygame.image.load('img/player2_02.png')
@@ -64,72 +61,75 @@ def add_tank2 (screen, tank2_index, tank2_x, tank2_y):
     screen.blit(player2[int(tank2_index)], (tank2_x, tank2_y))
     return player2_img[tank2_index]
 
-    # Movimentação tanque 1
-
+# Movement tank 1
 def tank_rect_follow(tankrect, tank_x, tank_y):
     tankrect.x = tank_x
     tankrect.y = tank_y
+
+# Tanks shot condition of movement
 def tank_input():
     if pygame.key.get_pressed ()[K_r]:
         conf.hit = True
     if pygame.key.get_pressed ()[K_t]:
         conf.hit2 = True
     if pygame.key.get_pressed ()[K_c]:
-        #shoot = pygame.mixer.Sound (conf.TANK_SHOOT)
-        #pygame.mixer.Sound.play (shoot)
-        #shoot.set_volume (0.05)
+        shoot = pygame.mixer.Sound (conf.TANK_SHOOT)
+        pygame.mixer.Sound.play (shoot)
+        shoot.set_volume (0.05)
         if conf.timer_on:
             conf.shoot = conf.shoot
         else:
             conf.shoot = True
     if pygame.key.get_pressed ()[K_v]:
-        #shoot = pygame.mixer.Sound (conf.TANK_SHOOT)
-        #pygame.mixer.Sound.play (shoot)
-        #shoot.set_volume (0.05)
+        shoot = pygame.mixer.Sound (conf.TANK_SHOOT)
+        pygame.mixer.Sound.play (shoot)
+        shoot.set_volume (0.05)
         if conf.timer_on2:
             conf.shoot2 = conf.shoot2
         else:
             conf.shoot2 = True
+    # Rotation tank1
     if pygame.key.get_pressed ()[K_a]:
-        #rotate = pygame.mixer.Sound (conf.TANK_ROTATE)
-        #pygame.mixer.Sound.play (rotate)
-        #rotate.set_volume (0.1)
+        rotate = pygame.mixer.Sound (conf.TANK_ROTATE)
+        pygame.mixer.Sound.play (rotate)
+        rotate.set_volume (0.1)
         conf.tank1_index -= 1
         if conf.tank1_index < 0:
             conf.tank1_index = 15
     if pygame.key.get_pressed ()[K_d]:
-        #rotate = pygame.mixer.Sound (conf.TANK_ROTATE)
-        #pygame.mixer.Sound.play (rotate)
-        #rotate.set_volume (0.1)
+        rotate = pygame.mixer.Sound (conf.TANK_ROTATE)
+        pygame.mixer.Sound.play (rotate)
+        rotate.set_volume (0.1)
         conf.tank1_index += 1
         if conf.tank1_index > 15:
             conf.tank1_index = 0
+    # Rotation tank2
     if pygame.key.get_pressed ()[K_LEFT]:
-        #rotate = pygame.mixer.Sound (conf.TANK_ROTATE)
-        #pygame.mixer.Sound.play (rotate)
-        #rotate.set_volume (0.1)
+        rotate = pygame.mixer.Sound (conf.TANK_ROTATE)
+        pygame.mixer.Sound.play (rotate)
+        rotate.set_volume (0.1)
         conf.tank2_index -= 1
         if conf.tank2_index < 0:
             conf.tank2_index = 15
     if pygame.key.get_pressed ()[K_RIGHT]:
-        #rotate = pygame.mixer.Sound (conf.TANK_ROTATE)
-        #pygame.mixer.Sound.play (rotate)
-        #rotate.set_volume (0.1)
+        rotate = pygame.mixer.Sound (conf.TANK_ROTATE)
+        pygame.mixer.Sound.play (rotate)
+        rotate.set_volume (0.1)
         conf.tank2_index += 1
         if conf.tank2_index > 15:
             conf.tank2_index = 0
-        # Movimentação tanque 1
+    # Movement tank 1
     if conf.cant_go:
         conf.shoot = conf.shoot
     else:
         if pygame.key.get_pressed ()[K_w]:
-            #walk = pygame.mixer.Sound (conf.TANK_WALK)
-            #pygame.mixer.Sound.play (walk)
-            #walk.set_volume (0.1)
-            # Esquerda
+            walk = pygame.mixer.Sound (conf.TANK_WALK)
+            pygame.mixer.Sound.play (walk)
+            walk.set_volume (0.1)
+            # Left
             if conf.tank1_index == 0:
                 conf.tank1_x += 0.27
-            # Esquerda baixo
+            # Left down
             if conf.tank1_index == 1:
                 conf.tank1_x += 0.27
                 conf.tank1_y -= 0.2
@@ -139,10 +139,10 @@ def tank_input():
             if conf.tank1_index == 3:
                 conf.tank1_x += 0.2
                 conf.tank1_y -= 0.27
-            # Baixo
+            # Down
             if conf.tank1_index == 4:
                 conf.tank1_y -= 0.27
-            # Baixo direita
+            # Down right
             if conf.tank1_index == 5:
                 conf.tank1_y -= 0.27
                 conf.tank1_x -= 0.2
@@ -152,10 +152,10 @@ def tank_input():
             if conf.tank1_index == 7:
                 conf.tank1_y -= 0.2
                 conf.tank1_x -= 0.27
-            # Direita
+            # Right
             if conf.tank1_index == 8:
                 conf.tank1_x -= 0.27
-            # Direita cima
+            # Right up
             if conf.tank1_index == 9:
                 conf.tank1_y += 0.2
                 conf.tank1_x -= 0.27
@@ -165,10 +165,10 @@ def tank_input():
             if conf.tank1_index == 11:
                 conf.tank1_y += 0.27
                 conf.tank1_x -= 0.2
-            # Encima
+            # Up
             if conf.tank1_index == 12:
                 conf.tank1_y += 0.27
-            # Esquerda cima
+            # Left up
             if conf.tank1_index == 13:
                 conf.tank1_x += 0.2
                 conf.tank1_y += 0.27
@@ -178,18 +178,19 @@ def tank_input():
             if conf.tank1_index == 15:
                 conf.tank1_x += 0.27
                 conf.tank1_y += 0.2
-            # Movimentação tanque 2
+                
+    # Movement tank2
     if conf.cant_go2:
         conf.shoot = conf.shoot
     else:
         if pygame.key.get_pressed ()[K_UP]:
-            #walk = pygame.mixer.Sound (conf.TANK_WALK)
-            #pygame.mixer.Sound.play (walk)
-            #walk.set_volume (0.1)
-            # Esquerda
+            walk = pygame.mixer.Sound (conf.TANK_WALK)
+            pygame.mixer.Sound.play (walk)
+            walk.set_volume (0.1)
+            # Left
             if conf.tank2_index == 0:
                 conf.tank2_x -= 0.27
-            # Esquerda baixo
+            # Left down
             if conf.tank2_index == 1:
                 conf.tank2_x -= 0.27
                 conf.tank2_y += 0.2
@@ -199,10 +200,10 @@ def tank_input():
             if conf.tank2_index == 3:
                 conf.tank2_x -= 0.2
                 conf.tank2_y += 0.27
-            # Baixo
+            # Down
             if conf.tank2_index == 4:
                 conf.tank2_y += 0.27
-            # Baixo direita
+            # Down right
             if conf.tank2_index == 5:
                 conf.tank2_y += 0.27
                 conf.tank2_x += 0.2
@@ -212,10 +213,10 @@ def tank_input():
             if conf.tank2_index == 7:
                 conf.tank2_y += 0.2
                 conf.tank2_x += 0.27
-            # Direita
+            # Right
             if conf.tank2_index == 8:
                 conf.tank2_x += 0.27
-            # Direita cima
+            # Right up
             if conf.tank2_index == 9:
                 conf.tank2_y -= 0.2
                 conf.tank2_x += 0.27
@@ -225,10 +226,10 @@ def tank_input():
             if conf.tank2_index == 11:
                 conf.tank2_y -= 0.27
                 conf.tank2_x += 0.2
-            # Encima
+            # Up
             if conf.tank2_index == 12:
                 conf.tank2_y -= 0.27
-            # Esquerda cima
+            # Left up
             if conf.tank2_index == 13:
                 conf.tank2_x -= 0.2
                 conf.tank2_y -= 0.27
