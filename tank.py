@@ -190,56 +190,56 @@ class Tank:
                 walk.set_volume(0.1)
                 # Left
                 if conf.tank1_index == 0:
-                    conf.tank1_x += 0.27
+                    conf.tank1_x += 1.5
                 # Down left
                 if conf.tank1_index == 1:
-                    conf.tank1_x += 0.27
-                    conf.tank1_y -= 0.2
+                    conf.tank1_x += 1.5
+                    conf.tank1_y -= 1
                 if conf.tank1_index == 2:
-                    conf.tank1_x += 0.27
-                    conf.tank1_y -= 0.27
+                    conf.tank1_x += 1.5
+                    conf.tank1_y -= 1.5
                 if conf.tank1_index == 3:
-                    conf.tank1_x += 0.2
-                    conf.tank1_y -= 0.27
+                    conf.tank1_x += 1
+                    conf.tank1_y -= 1.5
                 # Down
                 if conf.tank1_index == 4:
-                    conf.tank1_y -= 0.27
+                    conf.tank1_y -= 1.5
                 # Down right
                 if conf.tank1_index == 5:
-                    conf.tank1_y -= 0.27
-                    conf.tank1_x -= 0.2
+                    conf.tank1_y -= 1.5
+                    conf.tank1_x -= 1
                 if conf.tank1_index == 6:
-                    conf.tank1_y -= 0.27
-                    conf.tank1_x -= 0.27
+                    conf.tank1_y -= 1.5
+                    conf.tank1_x -= 1.5
                 if conf.tank1_index == 7:
-                    conf.tank1_y -= 0.2
-                    conf.tank1_x -= 0.27
+                    conf.tank1_y -= 1
+                    conf.tank1_x -= 1.5
                 # Right
                 if conf.tank1_index == 8:
-                    conf.tank1_x -= 0.27
+                    conf.tank1_x -= 1.5
                 # Up
                 if conf.tank1_index == 9:
-                    conf.tank1_y += 0.2
-                    conf.tank1_x -= 0.27
+                    conf.tank1_y += 1
+                    conf.tank1_x -= 1.5
                 if conf.tank1_index == 10:
-                    conf.tank1_y += 0.2
-                    conf.tank1_x -= 0.27
+                    conf.tank1_y += 1
+                    conf.tank1_x -= 1.5
                 if conf.tank1_index == 11:
-                    conf.tank1_y += 0.27
-                    conf.tank1_x -= 0.2
+                    conf.tank1_y += 1.5
+                    conf.tank1_x -= 1
                 # Above
                 if conf.tank1_index == 12:
-                    conf.tank1_y += 0.27
+                    conf.tank1_y += 1.5
                 # Up left
                 if conf.tank1_index == 13:
-                    conf.tank1_x += 0.2
-                    conf.tank1_y += 0.27
+                    conf.tank1_x += 1
+                    conf.tank1_y += 1.5
                 if conf.tank1_index == 14:
-                    conf.tank1_x += 0.27
-                    conf.tank1_y += 0.27
+                    conf.tank1_x += 1.5
+                    conf.tank1_y += 1.5
                 if conf.tank1_index == 15:
-                    conf.tank1_x += 0.27
-                    conf.tank1_y += 0.2
+                    conf.tank1_x += 1.5
+                    conf.tank1_y += 1
                 # Movement tank 2
         if conf.cant_go2:
             conf.shoot = conf.shoot
@@ -250,53 +250,53 @@ class Tank:
                 walk.set_volume(0.1)
                 # left
                 if conf.tank2_index == 0:
-                    conf.tank2_x -= 0.27
+                    conf.tank2_x -= 1.5
                 # Down left
                 if conf.tank2_index == 1:
-                    conf.tank2_x -= 0.27
-                    conf.tank2_y += 0.2
+                    conf.tank2_x -= 1.5
+                    conf.tank2_y += 1
                 if conf.tank2_index == 2:
-                    conf.tank2_x -= 0.27
-                    conf.tank2_y += 0.27
+                    conf.tank2_x -= 1.5
+                    conf.tank2_y += 1.5
                 if conf.tank2_index == 3:
-                    conf.tank2_x -= 0.2
-                    conf.tank2_y += 0.27
+                    conf.tank2_x -= 1
+                    conf.tank2_y += 1.5
                 # Down
                 if conf.tank2_index == 4:
-                    conf.tank2_y += 0.27
+                    conf.tank2_y += 1.5
                 # Down right
                 if conf.tank2_index == 5:
-                    conf.tank2_y += 0.27
-                    conf.tank2_x += 0.2
+                    conf.tank2_y += 1.5
+                    conf.tank2_x += 1
                 if conf.tank2_index == 6:
-                    conf.tank2_y += 0.27
-                    conf.tank2_x += 0.27
+                    conf.tank2_y += 1.5
+                    conf.tank2_x += 1.5
                 if conf.tank2_index == 7:
-                    conf.tank2_y += 0.2
-                    conf.tank2_x += 0.27
+                    conf.tank2_y += 1
+                    conf.tank2_x += 1.5
                 # Left
                 if conf.tank2_index == 8:
-                    conf.tank2_x += 0.27
+                    conf.tank2_x += 1.5
                 # Up right
                 if conf.tank2_index == 9:
-                    conf.tank2_y -= 0.2
-                    conf.tank2_x += 0.27
+                    conf.tank2_y -= 1
+                    conf.tank2_x += 1.5
                 if conf.tank2_index == 10:
-                    conf.tank2_y -= 0.2
-                    conf.tank2_x += 0.27
+                    conf.tank2_y -= 1.5
+                    conf.tank2_x += 1.5
                 if conf.tank2_index == 11:
-                    conf.tank2_y -= 0.27
-                    conf.tank2_x += 0.2
+                    conf.tank2_y -= 1.5
+                    conf.tank2_x += 1
                 # Above
                 if conf.tank2_index == 12:
-                    conf.tank2_y -= 0.27
+                    conf.tank2_y -= 1.5
                 # Up left
                 if conf.tank2_index == 13:
-                    conf.tank2_x -= 0.2
-                    conf.tank2_y -= 0.27
+                    conf.tank2_x -= 1
+                    conf.tank2_y -= 1.5
                 if conf.tank2_index == 14:
-                    conf.tank2_x -= 0.27
-                    conf.tank2_y -= 0.27
+                    conf.tank2_x -= 1.5
+                    conf.tank2_y -= 1.5
                 if conf.tank2_index == 15:
-                    conf.tank2_x -= 0.27
-                    conf.tank2_y -= 0.2
+                    conf.tank2_x -= 1.5
+                    conf.tank2_y -= 1
