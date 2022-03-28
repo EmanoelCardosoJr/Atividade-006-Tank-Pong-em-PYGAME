@@ -1,6 +1,4 @@
 import pygame
-import config
-conf = config
 
 
 class Score:
