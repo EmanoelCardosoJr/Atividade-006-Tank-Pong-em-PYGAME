@@ -146,7 +146,7 @@ class Tank:
         if pygame.key.get_pressed()[K_t]:
             conf.hit2 = True
         if pygame.key.get_pressed()[K_c]:
-            shoot = pygame.mixer.Sound(conf.TANK_SHOOT)
+            shoot = pygame.mixer.Sound(conf.tank_shoot_sound)
             pygame.mixer.Sound.play(shoot)
             shoot.set_volume(0.05)
             if conf.timer_on:
@@ -154,7 +154,7 @@ class Tank:
             else:
                 conf.shoot = True
         if pygame.key.get_pressed()[K_v]:
-            shoot = pygame.mixer.Sound(conf.TANK_SHOOT)
+            shoot = pygame.mixer.Sound(conf.tank_shoot_sound)
             pygame.mixer.Sound.play(shoot)
             shoot.set_volume(0.05)
             if conf.timer_on2:
@@ -162,28 +162,28 @@ class Tank:
             else:
                 conf.shoot2 = True
         if pygame.key.get_pressed()[K_a]:
-            rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
+            rotate = pygame.mixer.Sound(conf.tank_rotate_sound)
             pygame.mixer.Sound.play(rotate)
             rotate.set_volume(0.1)
             self.tank1_index -= 1
             if self.tank1_index < 0:
                 self.tank1_index = 15
         if pygame.key.get_pressed()[K_d]:
-            rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
+            rotate = pygame.mixer.Sound(conf.tank_rotate_sound)
             pygame.mixer.Sound.play(rotate)
             rotate.set_volume(0.1)
             self.tank1_index += 1
             if self.tank1_index > 15:
                 self.tank1_index = 0
         if pygame.key.get_pressed()[K_LEFT]:
-            rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
+            rotate = pygame.mixer.Sound(conf.tank_rotate_sound)
             pygame.mixer.Sound.play(rotate)
             rotate.set_volume(0.1)
             self.tank2_index -= 1
             if self.tank2_index < 0:
                 self.tank2_index = 15
         if pygame.key.get_pressed()[K_RIGHT]:
-            rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
+            rotate = pygame.mixer.Sound(conf.tank_rotate_sound)
             pygame.mixer.Sound.play(rotate)
             rotate.set_volume(0.1)
             self.tank2_index += 1
@@ -194,7 +194,7 @@ class Tank:
             conf.shoot = conf.shoot
         else:
             if pygame.key.get_pressed()[K_w]:
-                walk = pygame.mixer.Sound(conf.TANK_WALK)
+                walk = pygame.mixer.Sound(conf.tank_walk_sound)
                 pygame.mixer.Sound.play(walk)
                 walk.set_volume(0.1)
                 # Left
@@ -254,7 +254,7 @@ class Tank:
             conf.shoot = conf.shoot
         else:
             if pygame.key.get_pressed()[K_UP]:
-                walk = pygame.mixer.Sound(conf.TANK_WALK)
+                walk = pygame.mixer.Sound(conf.tank_walk_sound)
                 pygame.mixer.Sound.play(walk)
                 walk.set_volume(0.1)
                 # left

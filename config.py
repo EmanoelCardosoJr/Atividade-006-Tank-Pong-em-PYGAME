@@ -23,8 +23,7 @@ timer_on2 = False
 cant_go = False
 cant_go2 = False
 # sounds
-BALL_COLLISION_WALLS = "sound/ball_collision.mp3"
-TANK_HIT = "sound/cannon_hit.mp3"
-TANK_ROTATE = "sound/rotate.mp3"
-TANK_SHOOT = "sound/shoot.mp3"
-TANK_WALK = "sound/walk.mp3"
+tank_hit_sound = "sound/cannon_hit.mp3"
+tank_rotate_sound = "sound/rotate.mp3"
+tank_shoot_sound = "sound/shoot.mp3"
+tank_walk_sound = "sound/walk.mp3"

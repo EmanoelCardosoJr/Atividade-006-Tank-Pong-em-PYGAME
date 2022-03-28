@@ -356,14 +356,15 @@ class Ball:
             # use whatever tank collision functions with the ball you have here
             self.ball_mx, self.ball_my = ball.end_ball(ball1)
 
-            hit = pygame.mixer.Sound(conf.TANK_HIT)
+            hit = pygame.mixer.Sound(conf.tank_hit_sound)
             pygame.mixer.Sound.play(hit)
             hit.set_volume(0.1)
             conf.score_p_1 += 1
         if tank1_rect.colliderect(ball2):
             # use whatever tank collision functions with the ball you have here
-            hit = pygame.mixer.Sound(conf.TANK_HIT)
+            hit = pygame.mixer.Sound(conf.tank_hit_sound)
             pygame.mixer.Sound.play(hit)
+            hit.set_volume (0.1)
             self.ball2_mx, self.ball2_my = ball.end_ball(ball2)
             conf.score_p_2 += 1
 
