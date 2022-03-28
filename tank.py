@@ -8,9 +8,18 @@ conf = config
 class Tank:
     def __init__(self):
         pygame.init()
+        self.tank1_index = 0
+        self.tank2_index = 0
+        self.tank1_x = 30
+        self.tank1_y = 350
+        self.tank2_x = 740
+        self.tank2_y = 350
+        self.tank_size = 32
 
-    def create_tank(self, tank_pos_x, tank_pos_y, tank_size):
-        return pygame.Rect(tank_pos_x, tank_pos_y, tank_size, tank_size)
+    def create_tank(self, tank_pos_x, tank_pos_y):
+        return pygame.Rect(
+            tank_pos_x, tank_pos_y, self.tank_size, self.tank_size
+        )
 
     def add_tank1(self, screen, tank1_index, tank1_x, tank1_y):
         p1_img0 = pygame.image.load("img/player1_00.png")
@@ -156,30 +165,30 @@ class Tank:
             rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
             pygame.mixer.Sound.play(rotate)
             rotate.set_volume(0.1)
-            conf.tank1_index -= 1
-            if conf.tank1_index < 0:
-                conf.tank1_index = 15
+            self.tank1_index -= 1
+            if self.tank1_index < 0:
+                self.tank1_index = 15
         if pygame.key.get_pressed()[K_d]:
             rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
             pygame.mixer.Sound.play(rotate)
             rotate.set_volume(0.1)
-            conf.tank1_index += 1
-            if conf.tank1_index > 15:
-                conf.tank1_index = 0
+            self.tank1_index += 1
+            if self.tank1_index > 15:
+                self.tank1_index = 0
         if pygame.key.get_pressed()[K_LEFT]:
             rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
             pygame.mixer.Sound.play(rotate)
             rotate.set_volume(0.1)
-            conf.tank2_index -= 1
-            if conf.tank2_index < 0:
-                conf.tank2_index = 15
+            self.tank2_index -= 1
+            if self.tank2_index < 0:
+                self.tank2_index = 15
         if pygame.key.get_pressed()[K_RIGHT]:
             rotate = pygame.mixer.Sound(conf.TANK_ROTATE)
             pygame.mixer.Sound.play(rotate)
             rotate.set_volume(0.1)
-            conf.tank2_index += 1
-            if conf.tank2_index > 15:
-                conf.tank2_index = 0
+            self.tank2_index += 1
+            if self.tank2_index > 15:
+                self.tank2_index = 0
             # Movement tank 1
         if conf.cant_go:
             conf.shoot = conf.shoot
@@ -189,57 +198,57 @@ class Tank:
                 pygame.mixer.Sound.play(walk)
                 walk.set_volume(0.1)
                 # Left
-                if conf.tank1_index == 0:
-                    conf.tank1_x += 1.5
+                if self.tank1_index == 0:
+                    self.tank1_x += 1.5
                 # Down left
-                if conf.tank1_index == 1:
-                    conf.tank1_x += 1.5
-                    conf.tank1_y -= 1
-                if conf.tank1_index == 2:
-                    conf.tank1_x += 1.5
-                    conf.tank1_y -= 1.5
-                if conf.tank1_index == 3:
-                    conf.tank1_x += 1
-                    conf.tank1_y -= 1.5
+                if self.tank1_index == 1:
+                    self.tank1_x += 1.5
+                    self.tank1_y -= 1
+                if self.tank1_index == 2:
+                    self.tank1_x += 1.5
+                    self.tank1_y -= 1.5
+                if self.tank1_index == 3:
+                    self.tank1_x += 1
+                    self.tank1_y -= 1.5
                 # Down
-                if conf.tank1_index == 4:
-                    conf.tank1_y -= 1.5
+                if self.tank1_index == 4:
+                    self.tank1_y -= 1.5
                 # Down right
-                if conf.tank1_index == 5:
-                    conf.tank1_y -= 1.5
-                    conf.tank1_x -= 1
-                if conf.tank1_index == 6:
-                    conf.tank1_y -= 1.5
-                    conf.tank1_x -= 1.5
-                if conf.tank1_index == 7:
-                    conf.tank1_y -= 1
-                    conf.tank1_x -= 1.5
+                if self.tank1_index == 5:
+                    self.tank1_y -= 1.5
+                    self.tank1_x -= 1
+                if self.tank1_index == 6:
+                    self.tank1_y -= 1.5
+                    self.tank1_x -= 1.5
+                if self.tank1_index == 7:
+                    self.tank1_y -= 1
+                    self.tank1_x -= 1.5
                 # Right
-                if conf.tank1_index == 8:
-                    conf.tank1_x -= 1.5
+                if self.tank1_index == 8:
+                    self.tank1_x -= 1.5
                 # Up
-                if conf.tank1_index == 9:
-                    conf.tank1_y += 1
-                    conf.tank1_x -= 1.5
-                if conf.tank1_index == 10:
-                    conf.tank1_y += 1
-                    conf.tank1_x -= 1.5
-                if conf.tank1_index == 11:
-                    conf.tank1_y += 1.5
-                    conf.tank1_x -= 1
+                if self.tank1_index == 9:
+                    self.tank1_y += 1
+                    self.tank1_x -= 1.5
+                if self.tank1_index == 10:
+                    self.tank1_y += 1
+                    self.tank1_x -= 1.5
+                if self.tank1_index == 11:
+                    self.tank1_y += 1.5
+                    self.tank1_x -= 1
                 # Above
-                if conf.tank1_index == 12:
-                    conf.tank1_y += 1.5
+                if self.tank1_index == 12:
+                    self.tank1_y += 1.5
                 # Up left
-                if conf.tank1_index == 13:
-                    conf.tank1_x += 1
-                    conf.tank1_y += 1.5
-                if conf.tank1_index == 14:
-                    conf.tank1_x += 1.5
-                    conf.tank1_y += 1.5
-                if conf.tank1_index == 15:
-                    conf.tank1_x += 1.5
-                    conf.tank1_y += 1
+                if self.tank1_index == 13:
+                    self.tank1_x += 1
+                    self.tank1_y += 1.5
+                if self.tank1_index == 14:
+                    self.tank1_x += 1.5
+                    self.tank1_y += 1.5
+                if self.tank1_index == 15:
+                    self.tank1_x += 1.5
+                    self.tank1_y += 1
                 # Movement tank 2
         if conf.cant_go2:
             conf.shoot = conf.shoot
@@ -249,54 +258,76 @@ class Tank:
                 pygame.mixer.Sound.play(walk)
                 walk.set_volume(0.1)
                 # left
-                if conf.tank2_index == 0:
-                    conf.tank2_x -= 1.5
+                if self.tank2_index == 0:
+                    self.tank2_x -= 1.5
                 # Down left
-                if conf.tank2_index == 1:
-                    conf.tank2_x -= 1.5
-                    conf.tank2_y += 1
-                if conf.tank2_index == 2:
-                    conf.tank2_x -= 1.5
-                    conf.tank2_y += 1.5
-                if conf.tank2_index == 3:
-                    conf.tank2_x -= 1
-                    conf.tank2_y += 1.5
+                if self.tank2_index == 1:
+                    self.tank2_x -= 1.5
+                    self.tank2_y += 1
+                if self.tank2_index == 2:
+                    self.tank2_x -= 1.5
+                    self.tank2_y += 1.5
+                if self.tank2_index == 3:
+                    self.tank2_x -= 1
+                    self.tank2_y += 1.5
                 # Down
-                if conf.tank2_index == 4:
-                    conf.tank2_y += 1.5
+                if self.tank2_index == 4:
+                    self.tank2_y += 1.5
                 # Down right
-                if conf.tank2_index == 5:
-                    conf.tank2_y += 1.5
-                    conf.tank2_x += 1
-                if conf.tank2_index == 6:
-                    conf.tank2_y += 1.5
-                    conf.tank2_x += 1.5
-                if conf.tank2_index == 7:
-                    conf.tank2_y += 1
-                    conf.tank2_x += 1.5
+                if self.tank2_index == 5:
+                    self.tank2_y += 1.5
+                    self.tank2_x += 1
+                if self.tank2_index == 6:
+                    self.tank2_y += 1.5
+                    self.tank2_x += 1.5
+                if self.tank2_index == 7:
+                    self.tank2_y += 1
+                    self.tank2_x += 1.5
                 # Left
-                if conf.tank2_index == 8:
-                    conf.tank2_x += 1.5
+                if self.tank2_index == 8:
+                    self.tank2_x += 1.5
                 # Up right
-                if conf.tank2_index == 9:
-                    conf.tank2_y -= 1
-                    conf.tank2_x += 1.5
-                if conf.tank2_index == 10:
-                    conf.tank2_y -= 1.5
-                    conf.tank2_x += 1.5
-                if conf.tank2_index == 11:
-                    conf.tank2_y -= 1.5
-                    conf.tank2_x += 1
+                if self.tank2_index == 9:
+                    self.tank2_y -= 1
+                    self.tank2_x += 1.5
+                if self.tank2_index == 10:
+                    self.tank2_y -= 1.5
+                    self.tank2_x += 1.5
+                if self.tank2_index == 11:
+                    self.tank2_y -= 1.5
+                    self.tank2_x += 1
                 # Above
-                if conf.tank2_index == 12:
-                    conf.tank2_y -= 1.5
+                if self.tank2_index == 12:
+                    self.tank2_y -= 1.5
                 # Up left
-                if conf.tank2_index == 13:
-                    conf.tank2_x -= 1
-                    conf.tank2_y -= 1.5
-                if conf.tank2_index == 14:
-                    conf.tank2_x -= 1.5
-                    conf.tank2_y -= 1.5
-                if conf.tank2_index == 15:
-                    conf.tank2_x -= 1.5
-                    conf.tank2_y -= 1
+                if self.tank2_index == 13:
+                    self.tank2_x -= 1
+                    self.tank2_y -= 1.5
+                if self.tank2_index == 14:
+                    self.tank2_x -= 1.5
+                    self.tank2_y -= 1.5
+                if self.tank2_index == 15:
+                    self.tank2_x -= 1.5
+                    self.tank2_y -= 1
+
+    def tank_collision_with_outer_wall(self):
+
+        if self.tank1_y < 0 + 80:
+            self.tank1_y = 0 + 100
+        elif self.tank1_y > conf.screen_width - 70:
+            self.tank1_y = conf.screen_width - 90
+        elif self.tank1_x < 0 + 15:
+            self.tank1_x = 0 + 30
+        elif self.tank1_x > conf.screen_height - 45:
+            self.tank1_x = conf.screen_height - 50
+
+    def tank_collision_with_outer_wall_2(self):
+
+        if self.tank2_y < 0 + 80:
+            self.tank2_y = 0 + 100
+        elif self.tank2_y > conf.screen_width - 70:
+            self.tank2_y = conf.screen_width - 80
+        elif self.tank2_x < 0 + 15:
+            self.tank2_x = 0 + 30
+        elif self.tank2_x > conf.screen_height - 45:
+            self.tank2_x = conf.screen_height - 50
